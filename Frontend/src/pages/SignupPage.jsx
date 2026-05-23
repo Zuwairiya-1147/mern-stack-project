@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Container, VStack, Input, Button, Heading,useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const Signup = () => {
     const toast = useToast();
@@ -20,7 +22,7 @@ const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/signup", {
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

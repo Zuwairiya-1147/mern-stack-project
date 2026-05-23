@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const useProductStore = create((set) => ({
     products: [],
     loading: false,
@@ -10,7 +12,7 @@ export const useProductStore = create((set) => ({
     return { success: false, message: "Please fill in all fields." };
   }
 
-  const res = await fetch("/api/products", {
+  const res = await fetch(`${API_URL}/api/products`, {
     method: "POST",
     headers: {
         "Content-Type": "application/json",
@@ -28,12 +30,12 @@ export const useProductStore = create((set) => ({
   return { success: true, message: "Product created successfully" };
 },
     fetchProducts: async () => {
-  set({ loading: true }); // 👈 ADD THIS FIRST
+  set({ loading: true }); 
 
   try {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("/api/products", {
+    const res = await fetch(`${API_URL}/api/products`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
@@ -55,7 +57,7 @@ export const useProductStore = create((set) => ({
   }
 },
     deleteProduct: async (pid) => {
-        const res = await fetch(`/api/products/${pid}`, {
+        const res = await fetch(`${API_URL}/api/products/${pid}`, {
   method: "DELETE",
   headers: {
   "Content-Type": "application/json",
@@ -69,7 +71,7 @@ export const useProductStore = create((set) => ({
         return { success: true, message: data.message };
     },
     updateProduct: async (pid, updatedProduct) => {
-        const res = await fetch(`/api/products/${pid}`, {
+        const res = await fetch(`${API_URL}/api/products/${pid}`, {
             method: "PUT",
             headers: {
   "Content-Type": "application/json",
