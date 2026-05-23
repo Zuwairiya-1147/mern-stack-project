@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { connectDB } from './config/db.js';
 import authRoutes from "./routes/auth.route.js";
+import cors from "cors";
 
 import productRoutes from "./routes/product.route.js";
 
@@ -14,6 +15,11 @@ const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
 app.use(express.json()); //allows to  accept json data in req.body
+
+app.use(cors({
+  origin: "https://mern-stack-project-tawny.vercel.app",
+  credentials: true
+}));
 
 app.use("/api/auth", authRoutes);
 
